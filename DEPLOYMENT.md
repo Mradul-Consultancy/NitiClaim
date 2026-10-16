@@ -44,14 +44,50 @@ The `frontend/` directory includes `vercel.json` for zero-config deploy.
 
 ---
 
-## 🚂 Railway (One-Click)
+## 🚂 Railway (Full-Stack Multi-Service Deployment)
 
-1. Go to [railway.app](https://railway.app/) → **New Project → Deploy from GitHub**
-2. Select `Mradul-Consultancy/NitiClaim`
-3. Set start command:
-   - **Streamlit:** `streamlit run app.py --server.port $PORT --server.address 0.0.0.0`
-   - **FastAPI:** `uvicorn api:app --host 0.0.0.0 --port $PORT`
-4. Add env vars in dashboard
+Railway makes deploying multi-service architectures seamless with internal private networking (`.railway.internal`).
+
+### Step-by-Step Setup:
+
+1. **Sign in to Railway**:
+   - Go to [railway.app](https://railway.app/) and sign in with your GitHub account.
+
+2. **Create Project**:
+   - Click **New Project** → **Deploy from GitHub repo**.
+   - Select **`Mradul-Consultancy/NitiClaim`**.
+
+3. **Configure the 3 Services**:
+
+   - **Service 1: Backend (`niticlaim-backend`)**
+     - Go to Service Settings → **Build**:
+       - Builder: **Dockerfile**
+       - Dockerfile Path: `Dockerfile.backend`
+     - Go to **Networking**:
+       - Click **Generate Domain** (gives you public API URL)
+       - Internal Port: `8000`
+     - Go to **Variables**: Add `PERPLEXITY_API_KEY`, `OPENAI_API_KEY`
+
+   - **Service 2: Streamlit UI (`niticlaim-streamlit`)**
+     - In the same project canvas, click **+ New** → **GitHub Repo** → select `Mradul-Consultancy/NitiClaim` again.
+     - Go to Service Settings → **Build**:
+       - Builder: **Dockerfile**
+       - Dockerfile Path: `Dockerfile.streamlit`
+     - Go to **Networking**:
+       - Click **Generate Domain** (gives public Streamlit URL)
+       - Port: `8501`
+     - Go to **Variables**:
+       - `BACKEND_URL`: `http://${{niticlaim-backend.RAILWAY_PRIVATE_DOMAIN}}:8000`
+
+   - **Service 3: React Frontend (`niticlaim-frontend`)**
+     - Click **+ New** → **GitHub Repo** → select `Mradul-Consultancy/NitiClaim`.
+     - Go to Service Settings → **Source Directory**: set to `/frontend`.
+     - Go to **Networking**: Click **Generate Domain**.
+     - Go to **Variables**:
+       - `VITE_API_BASE_URL`: `https://${{niticlaim-backend.RAILWAY_PUBLIC_DOMAIN}}`
+
+4. **Deploy**:
+   - Railway will build and deploy each container independently. Updates to GitHub automatically trigger CI/CD builds.
 
 ---
 
