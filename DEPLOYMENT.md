@@ -1,141 +1,118 @@
-# FileStarter - Deployment Guide
+# NitiClaim — Deployment Guide
 
-## 🚀 Streamlit Cloud Deployment (Recommended)
+## ✅ Streamlit Community Cloud (LIVE)
 
-### Prerequisites
-- GitHub account with this repository
-- Perplexity AI API key (get from https://www.perplexity.ai/)
+**Live URL:** [niticlaim.streamlit.app](https://niticlaim.streamlit.app/)
 
-### Quick Deploy Steps
+Already deployed. Manage at [share.streamlit.io](https://share.streamlit.io/).
 
-1. **Go to Streamlit Cloud**: https://share.streamlit.io/
-2. **Sign in** with your GitHub account
-3. **Click "New app"**
-4. **Configure deployment**:
-   - Repository: `yashrajputs/Beetals-O.1`
-   - Branch: `main` 
-   - Main file path: `app.py`
-   - App URL: Choose your custom URL
-5. **Add secrets** in Advanced settings:
-   ```toml
-   PERPLEXITY_API_KEY = "your_actual_api_key_here"
-   ```
-6. **Click "Deploy!"**
-
-✅ **Your app will be live at**: `https://your-chosen-url.streamlit.app`
-
-## GitHub Setup
-
-1. **Initialize Repository** (if not already done):
-```bash
-git init
-git add .
-git commit -m "Initial commit: Insurance Claims Analysis System"
+Add secrets under **App Settings → Secrets**:
+```toml
+PERPLEXITY_API_KEY = "your_api_key_here"
+OPENAI_API_KEY = "your_openai_key_here"
 ```
 
-2. **Add Remote Repository**:
+---
+
+## 🟢 Render (Full-Stack — FastAPI + Streamlit + React)
+
+The repo includes a `render.yaml` Blueprint that auto-configures 3 services.
+
+### Steps
+1. Go to [dashboard.render.com](https://dashboard.render.com/) → **New → Blueprint**
+2. Connect GitHub repo: `Mradul-Consultancy/NitiClaim`
+3. Render auto-detects `render.yaml` and creates:
+   - `niticlaim-backend` (FastAPI REST API)
+   - `niticlaim-streamlit` (Streamlit Claims Portal)
+   - `niticlaim-frontend` (React Static Site)
+4. Add environment variables: `PERPLEXITY_API_KEY`, `OPENAI_API_KEY`
+5. Click **Apply**
+
+---
+
+## 🟢 Vercel (React Frontend)
+
+The `frontend/` directory includes `vercel.json` for zero-config deploy.
+
+### Steps
+1. Go to [vercel.com/new](https://vercel.com/new) → Import from GitHub
+2. Select `Mradul-Consultancy/NitiClaim`
+3. Set **Root Directory** to `frontend`
+4. Framework: Vite, Build: `npm run build`, Output: `dist`
+5. Add env var: `VITE_API_BASE_URL` → your Render backend URL
+6. Deploy
+
+---
+
+## 🚂 Railway (One-Click)
+
+1. Go to [railway.app](https://railway.app/) → **New Project → Deploy from GitHub**
+2. Select `Mradul-Consultancy/NitiClaim`
+3. Set start command:
+   - **Streamlit:** `streamlit run app.py --server.port $PORT --server.address 0.0.0.0`
+   - **FastAPI:** `uvicorn api:app --host 0.0.0.0 --port $PORT`
+4. Add env vars in dashboard
+
+---
+
+## 🐳 Docker (Self-Hosted / VPS)
+
+### Quick Start
 ```bash
-git remote add origin https://github.com/yashrajputs/filestep.git
-git branch -M main
-git push -u origin main
+git clone https://github.com/Mradul-Consultancy/NitiClaim.git
+cd NitiClaim
+echo "PERPLEXITY_API_KEY=your-key" > .env
+docker-compose up -d --build
 ```
 
-## Local Development
+This starts:
+- **FastAPI Backend** → `http://localhost:8000` (Swagger: `/docs`)
+- **Streamlit App** → `http://localhost:8501`
+- **React Frontend** → `http://localhost:5173`
 
-1. **Clone and Setup**:
+### Individual Dockerfiles
+- `Dockerfile.backend` — FastAPI service
+- `Dockerfile.streamlit` — Streamlit portal
+- `frontend/Dockerfile` — React workbench
+
+---
+
+## 🤗 Hugging Face Spaces
+
+1. Go to [huggingface.co/spaces](https://huggingface.co/spaces) → Create Space
+2. Choose **Streamlit** SDK
+3. Upload repo files or connect GitHub
+4. Set secrets: `PERPLEXITY_API_KEY`
+
+---
+
+## ☁️ Google Cloud Run
+
 ```bash
-git clone https://github.com/yashrajputs/filestep.git
-cd filestep
-pip install -r dependencies.txt
+gcloud run deploy niticlaim-api \
+  --source . \
+  --dockerfile Dockerfile.backend \
+  --port 8000 \
+  --allow-unauthenticated \
+  --set-env-vars PERPLEXITY_API_KEY=your-key
 ```
 
-2. **Environment Configuration**:
-```bash
-export PERPLEXITY_API_KEY="your_api_key_here"
-```
-
-3. **Run Application**:
-```bash
-streamlit run app.py --server.port 5000
-```
-
-## Replit Deployment
-
-1. **Import from GitHub**:
-   - Go to Replit.com
-   - Click "Create Repl"
-   - Choose "Import from GitHub"
-   - Enter repository URL: https://github.com/yashrajputs/filestep
-
-2. **Configure Secrets**:
-   - Add `PERPLEXITY_API_KEY` in Replit Secrets
-   - The system will automatically use environment variables
-
-3. **Run Configuration**:
-   - Replit will auto-detect the Streamlit app
-   - Or manually configure: `streamlit run app.py --server.port 5000`
+---
 
 ## Environment Variables
 
-Required environment variables:
-- `PERPLEXITY_API_KEY`: Your Perplexity AI API key
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `PERPLEXITY_API_KEY` | Yes | Perplexity AI API key |
+| `OPENAI_API_KEY` | Optional | OpenAI API key (alternative LLM) |
+| `DATABASE_URL` | Optional | Default: `sqlite:///./insurance_claims.db` |
+| `DEFAULT_LLM_PROVIDER` | Optional | `perplexity`, `openai`, or `mock` |
 
-Optional configurations:
-- `STREAMLIT_SERVER_PORT`: Server port (default: 5000)
-- `STREAMLIT_SERVER_ADDRESS`: Server address (default: 0.0.0.0)
-
-## File Structure for GitHub
-
-```
-filestep/
-├── app.py                 # Main application
-├── utils/
-│   ├── __init__.py       # Package initializer
-│   ├── pdf_processor.py   # PDF processing utilities
-│   ├── vector_search.py   # Search functionality
-│   └── ai_analyzer.py     # AI integration
-├── .streamlit/
-│   └── config.toml        # Streamlit configuration
-├── README.md             # Project documentation
-├── dependencies.txt      # Python dependencies
-├── DEPLOYMENT.md         # This file
-├── .gitignore           # Git ignore patterns
-└── replit.md            # Replit-specific documentation
-```
-
-## Production Considerations
-
-1. **Security**:
-   - Never commit API keys to version control
-   - Use environment variables or secure secret management
-   - Review .gitignore to exclude sensitive files
-
-2. **Performance**:
-   - Consider upgrading to Perplexity Pro API for higher limits
-   - Implement caching for frequently analyzed documents
-   - Add request rate limiting if needed
-
-3. **Monitoring**:
-   - Add logging for API requests and errors
-   - Monitor usage costs for Perplexity API
-   - Set up error tracking and alerts
+---
 
 ## Troubleshooting
 
-**Common Issues**:
-
-1. **API Authentication Error (401)**:
-   - Verify PERPLEXITY_API_KEY is set correctly
-   - Check if API key is valid and not expired
-
-2. **Module Import Errors**:
-   - Ensure all dependencies are installed
-   - Check Python version compatibility (3.8+)
-
-3. **PDF Processing Issues**:
-   - Verify PyMuPDF installation
-   - Check PDF file format and permissions
-
-4. **Streamlit Startup Issues**:
-   - Ensure port 5000 is available
-   - Check .streamlit/config.toml configuration
+1. **pyarrow build failure on Python 3.14** — Fixed by removing `pyproject.toml`/`uv.lock`. The app uses `requirements.txt` and `runtime.txt` (pinned to Python 3.11).
+2. **API Authentication Error (401)** — Verify API keys are set correctly.
+3. **Module Import Errors** — Ensure `requirements.txt` deps are installed.
+4. **PDF Processing Issues** — Verify PyMuPDF installation (`pymupdf`).
