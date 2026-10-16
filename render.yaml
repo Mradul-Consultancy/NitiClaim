@@ -1,0 +1,28 @@
+services:
+  # 1. FastAPI REST Backend Engine
+  - type: web
+    name: niticlaim-backend
+    env: python
+    buildCommand: pip install -r requirements.txt && pip install fastapi uvicorn pydantic-settings sqlmodel rank-bm25 httpx python-multipart pymupdf
+    startCommand: uvicorn api:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:///./insurance_claims.db
+      - key: DEFAULT_LLM_PROVIDER
+        value: perplexity
+      - key: PERPLEXITY_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+
+  # 2. Modern React 19 Frontend Workbench
+  - type: web
+    name: niticlaim-frontend
+    env: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
