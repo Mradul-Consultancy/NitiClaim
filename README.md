@@ -7,6 +7,7 @@
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://niticlaim.streamlit.app/)
 [![Railway](https://img.shields.io/badge/Railway-Live-0B0D0E.svg?logo=railway&logoColor=white)](https://niticlaim-production.up.railway.app)
+[![Vercel](https://img.shields.io/badge/Vercel-React%20UI%20Live-black.svg?logo=vercel&logoColor=white)](https://frontend-gamma-ten-31.vercel.app)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![React](https://img.shields.io/badge/React-19+-61DAFB.svg?logo=react&logoColor=black)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-6.0+-646CFF.svg?logo=vite&logoColor=white)](https://vitejs.dev)
@@ -16,10 +17,11 @@
 *An enterprise-grade, retrieval-augmented intelligence platform that transforms dense insurance policy contracts into legally defensible, automated coverage decisions with cited clause verifications.*
 
 🚀 **Live Deployments:**
+- **React 19 Executive Dashboard (Vercel):** [frontend-gamma-ten-31.vercel.app](https://frontend-gamma-ten-31.vercel.app)
+- **Claims Adjudicator Portal (Railway):** [niticlaim-production.up.railway.app](https://niticlaim-production.up.railway.app)
 - **Streamlit Community Cloud:** [niticlaim.streamlit.app](https://niticlaim.streamlit.app/)
-- **Railway Cloud:** [niticlaim-production.up.railway.app](https://niticlaim-production.up.railway.app)
 
-[Live Streamlit](https://niticlaim.streamlit.app/) • [Railway App](https://niticlaim-production.up.railway.app) • [Explore Architecture](#-system-architecture) • [Live Workbench](#-live-workbench) • [Quick Start](#-quick-start) • [API Documentation](#-rest-api-reference)
+[React Dashboard](https://frontend-gamma-ten-31.vercel.app) • [Railway Workbench](https://niticlaim-production.up.railway.app) • [Streamlit App](https://niticlaim.streamlit.app/) • [System Architecture](#-system-architecture) • [Quick Start](#-quick-start) • [API Documentation](#-rest-api-reference)
 
 ---
 
