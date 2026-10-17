@@ -6,6 +6,7 @@
 ### *Adjudication guided by policy truth.*
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://niticlaim.streamlit.app/)
+[![Railway](https://img.shields.io/badge/Railway-Live-0B0D0E.svg?logo=railway&logoColor=white)](https://niticlaim-production.up.railway.app)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![React](https://img.shields.io/badge/React-19+-61DAFB.svg?logo=react&logoColor=black)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-6.0+-646CFF.svg?logo=vite&logoColor=white)](https://vitejs.dev)
@@ -14,9 +15,11 @@
 
 *An enterprise-grade, retrieval-augmented intelligence platform that transforms dense insurance policy contracts into legally defensible, automated coverage decisions with cited clause verifications.*
 
-🚀 **Live Deployment:** [niticlaim.streamlit.app](https://niticlaim.streamlit.app/)
+🚀 **Live Deployments:**
+- **Streamlit Community Cloud:** [niticlaim.streamlit.app](https://niticlaim.streamlit.app/)
+- **Railway Cloud:** [niticlaim-production.up.railway.app](https://niticlaim-production.up.railway.app)
 
-[Live App](https://niticlaim.streamlit.app/) • [Explore Architecture](#-system-architecture) • [Live Workbench](#-live-workbench) • [Quick Start](#-quick-start) • [API Documentation](#-rest-api-reference)
+[Live Streamlit](https://niticlaim.streamlit.app/) • [Railway App](https://niticlaim-production.up.railway.app) • [Explore Architecture](#-system-architecture) • [Live Workbench](#-live-workbench) • [Quick Start](#-quick-start) • [API Documentation](#-rest-api-reference)
 
 ---
 
